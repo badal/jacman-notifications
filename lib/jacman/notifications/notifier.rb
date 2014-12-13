@@ -20,9 +20,10 @@ module JacintheManagement
       ENGLISH_SUBJECT = 'Notification of yours e-subscriptions'
 
       # @param [Integer|#to_i] tiers_id tiers identification
-      def initialize(tiers_id)
+      # FIXME
+      def initialize(tiers_id, subscriptions)
         @tiers = Base.find_tiers(tiers_id)
-        @subscriptions = Notifications.to_be_notified_for(tiers_id)
+        @subscriptions = subscriptions
         extract_destinations if @tiers
       end
 
@@ -69,7 +70,7 @@ module JacintheManagement
 
       # update database
       def say_notified
-        @subscriptions.each { |sub| Notifications.update(sub.id) }
+        @subscriptions.each { |sub| Base.update(sub.id) }
       end
 
       # @return [Hash] substitutions to be made to model
@@ -94,9 +95,9 @@ module JacintheManagement
       # Register this Tiers
       def register_tiers
         ranges = @tiers.ranges.empty? ? 'pas de plages' : 'plages'
-        Notifications.register [@tiers.tiers_id, @tiers.name,
-                                @subscriptions.size,
-                                ranges].join(TAB)
+        Register.register [@tiers.tiers_id, @tiers.name,
+                           @subscriptions.size,
+                           ranges].join(TAB)
       end
 
       # send mail

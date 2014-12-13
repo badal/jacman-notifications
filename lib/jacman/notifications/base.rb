@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-# File: notification_base.rb, created 13/12/14
+# File: base.rb, created 13/12/14
 # extracted from notification, created: 21/08/13
 #
 # (c) Michel Demazure & Kenji Lefevre
@@ -9,9 +9,6 @@
 module JacintheManagement
   # Methods for e-subscriptions notification
   module Notifications
-    # will be built and cached
-    @all_jacinthe_tiers = nil
-
     # tiers for notification
     Tiers = Struct.new(:tiers_id, :name, :ranges, :mails, :drupal)
 
@@ -37,6 +34,31 @@ module JacintheManagement
       # sql to extract electronic subscriptions to be notified
       SQL_SUBSCRIPTIONS = SqlScriptFile.new('subscriptions_to_notify').script
 
+      # sql to update base after notification
+      SQL_UPDATE = SqlScriptFile.new('update_subscription_notified').script
+
+      # @return [String] time stamp for files
+      def self.time_stamp
+        Time.now.strftime('%Y-%m-%d')
+      end
+
+      # tell JacintheD that subscription is notified
+      # @param [STRING] subs_id subscription identity
+      def self.update(subs_id)
+        query = SQL_UPDATE
+                .sub(/::abonnement_id::/, subs_id)
+                .sub(/::time_stamp::/, time_stamp)
+        if REAL
+          Sql.query(JACINTHE_MODE, query) # this is real mode
+        else
+          puts "SQL : #{query}" # this is  demo mode
+        end
+      end
+
+      # will be built and cached
+      @all_jacinthe_tiers = nil
+      @classified_notifications = nil
+
       ## base of all Jacinthe Tiers
 
       # @return [Array<Tiers>] list o/f all Jacinthe Tiers
@@ -47,6 +69,11 @@ module JacintheManagement
           parameters = format_items(items)
           @all_jacinthe_tiers[parameters[0]] = Tiers.new(*parameters)
         end
+      end
+
+      def self.all_jacinthe_tiers
+        build_jacinthe_tiers_list unless @all_jacinthe_tiers
+        @all_jacinthe_tiers
       end
 
       # @param [Array<String>] items split line form sql answer
@@ -69,8 +96,7 @@ module JacintheManagement
       # @param [Integer|#to_i] tiers_id tiers identification
       # @return [Tiers] this Tiers
       def self.find_tiers(tiers_id)
-        build_jacinthe_tiers_list unless @all_jacinthe_tiers
-        @all_jacinthe_tiers[tiers_id.to_i]
+        all_jacinthe_tiers[tiers_id.to_i]
       end
 
       ## base of all pending notifications
@@ -90,13 +116,24 @@ module JacintheManagement
       end
 
       # FIXME: comment
-      def self.classified_notifications
+      def self.build_classified_notifications
         table = {}
         all_notifications.each do |item|
           key = [item.revue, item.year]
           (table[key] ||= []) << item
         end
-        table
+        @classified_notifications = table
+      end
+
+      # FIXME:
+      def self.classified_notifications
+        build_classified_notifications unless @classified_notifications
+        @classified_notifications
+      end
+
+      # FIXME
+      def self.notification_categories
+        classified_notifications.keys.sort
       end
     end
   end

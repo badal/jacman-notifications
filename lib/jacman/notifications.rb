@@ -8,8 +8,9 @@
 
 require 'jacman/core'
 
-require_relative('notifications/notification_base.rb')
-require_relative('notifications/notification.rb')
+require_relative('notifications/base.rb')
+require_relative('notifications/register.rb')
+require_relative('notifications/selector.rb')
 require_relative('notifications/notifier.rb')
 
 module JacintheManagement
