@@ -18,6 +18,8 @@ module JacintheManagement
     class Selector
       def initialize(keys)
         @keys = keys
+        @report = []
+        extract_subscriptions_and_tiers
       end
 
       ##
@@ -27,8 +29,10 @@ module JacintheManagement
         @to_be_notified_for = []
         tiers_list = []
         full_list = Base.classified_notifications
+        @size = 0
         @keys.each do |key|
           full_list[key].each do |t_b_notified|
+            @size += 1
             tiers_id = t_b_notified.tiers_id.to_i
             (@to_be_notified_for[tiers_id] ||= []) << t_b_notified
             tiers_list << tiers_id
@@ -40,26 +44,25 @@ module JacintheManagement
       # @param [Integer|#to_i] tiers_id tiers identification
       # @return [Array<ToBeNotified] all subscriptions for this tiers
       def to_be_notified_for(tiers_id)
-        extract_subscriptions_and_tiers unless @to_be_notified_for
-        @to_be_notified_for[tiers_id.to_i]
+         @to_be_notified_for[tiers_id.to_i]
       end
 
       # @return [Array<Integer>] list of tiers_id appearing in subscriptions
       def tiers_list
-        extract_subscriptions_and_tiers unless @tiers_list
         @tiers_list
       end
 
       # command to notify all subscriptions
       def notify_all
-        number = Base.notifications_number
+        number = @size
         if number > 0
-          puts "#{number} notifications à faire"
+          @report << "#{number} notifications à faire"
           do_notify_all
-          Register.report_without_mail
+          @report << Register.report_without_mail
         else
-          puts 'Pas de notification à faire'
+          @report << 'Pas de notification à faire'
         end
+        @report
       end
 
       # WARNING: HACK here to protect for invalid tiers
@@ -71,9 +74,9 @@ module JacintheManagement
           done = Notifier.new(tiers_id, subs).notify
           next if done
           number -= 1
-          puts "notification impossible pour le tiers #{tiers_id}"
+          @report << "notification impossible pour le tiers #{tiers_id}"
         end
-        puts "#{number} mails(s) de notification envoyé(s)"
+        @report << "#{number} mails(s) de notification envoyé(s)"
       end
     end
   end

@@ -42,7 +42,7 @@ module JacintheManagement
       def self.report_without_mail
         number = @register.size - 1
         save_register
-        puts "<b>#{number} abonné(s) dépourvu(s) d'adresse mail</b>" if number > 0
+        "#{number} abonné(s) dépourvu(s) d'adresse mail" if number > 0
       end
     end
 

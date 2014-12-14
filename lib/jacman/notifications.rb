@@ -12,6 +12,7 @@ require_relative('notifications/base.rb')
 require_relative('notifications/register.rb')
 require_relative('notifications/selector.rb')
 require_relative('notifications/notifier.rb')
+require_relative('notifications/version.rb')
 
 module JacintheManagement
   module Notifications
