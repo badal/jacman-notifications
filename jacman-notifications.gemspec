@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = 'Core and Script tools for Jacinthe DB management'
   s.email = 'michel@demazure.com'
   s.extra_rdoc_files = ['README.md', 'LICENSE']
-  s.files = ['README.md', 'LICENSE', 'MANIFEST'] + Dir.glob('{lib,spec}/**/*')
+  s.files = ['README.md', 'LICENSE'] + Dir.glob('{lib,spec}/**/*')
   s.homepage = 'http://github/badal/jacman-core'
   s.require_paths = ['lib']
   s.summary = 'Core methods for Jacinthe DB management tools'
