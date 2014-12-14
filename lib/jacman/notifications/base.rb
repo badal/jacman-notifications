@@ -42,13 +42,14 @@ module JacintheManagement
         Time.now.strftime('%Y-%m-%d')
       end
 
+      # FIXME:
       # tell JacintheD that subscription is notified
       # @param [STRING] subs_id subscription identity
       def self.update(subs_id)
         query = SQL_UPDATE
                 .sub(/::abonnement_id::/, subs_id)
                 .sub(/::time_stamp::/, time_stamp)
-        if REAL
+        if true #REAL
           Sql.query(JACINTHE_MODE, query) # this is real mode
         else
           puts "SQL : #{query}" # this is  demo mode
