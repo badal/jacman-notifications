@@ -35,14 +35,15 @@ module JacintheManagement
           end
           file.puts(['', '', sum, ''].join(TAB))
         end
-        puts "File #{NO_MAIL_FILE} saved"
+        "Fichier : #{NO_MAIL_FILE}"
       end
 
       # Report how many users w/o mail
       def self.report_without_mail
         number = @register.size - 1
-        save_register
-        "#{number} abonné(s) dépourvu(s) d'adresse mail" if number > 0
+        return [] if number == 0
+        answer = save_register
+        "#{number} abonné(s) dépourvu(s) d'adresse mail\n" + answer
       end
     end
 

@@ -54,9 +54,8 @@ module JacintheManagement
 
       # command to notify all subscriptions
       def notify_all
-        number = @size
-        if number > 0
-          @report << "#{number} notifications à faire"
+        if @size > 0
+          @report << "#{@size} abonnement(s) à notifier"
           do_notify_all
           @report << Register.report_without_mail
         else
@@ -69,6 +68,7 @@ module JacintheManagement
       # Notifier all subscriptions
       def do_notify_all
         number = tiers_list.size
+        @report << "#{number} mail(s) à envoyer"
         tiers_list.each do |tiers_id|
           subs = to_be_notified_for(tiers_id)
           done = Notifier.new(tiers_id, subs).notify
