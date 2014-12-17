@@ -49,7 +49,7 @@ module JacintheManagement
         query = SQL_UPDATE
                 .sub(/::abonnement_id::/, subs_id)
                 .sub(/::time_stamp::/, time_stamp)
-        if REAL
+        if Notifications::REAL
           Sql.query(JACINTHE_MODE, query) # this is real mode
         else
           puts "SQL : #{query}" # this is  demo mode
