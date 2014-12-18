@@ -11,6 +11,7 @@ module JacintheManagement
   module Notifications
     NO_MAIL_FILE = File.join(Core::DATADIR, 'tiers_sans_mail.txt')
 
+    # methods to register tiers without mail
     module Register
       # list to register Tiers with subscriptions but without mail
       @register = [['Id', 'Nom', 'Nombre', 'Plages ?'].join(Core::TAB)]
@@ -19,10 +20,6 @@ module JacintheManagement
       # @param [String] line line to be registered
       def self.register(line)
         @register << line
-      end
-
-      def self.size
-        @register.size
       end
 
       # save the list of registered Tiers in a csv file

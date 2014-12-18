@@ -24,6 +24,7 @@ module JacintheManagement
       end
     end
 
+    # base methods for notifications
     module Base
       # sql to extract tiers
       SQL_TIERS = SqlScriptFile.new('tiers_ip_infos').script
@@ -42,7 +43,6 @@ module JacintheManagement
         Time.now.strftime('%Y-%m-%d')
       end
 
-      # FIXME:
       # tell JacintheD that subscription is notified
       # @param [STRING] subs_id subscription identity
       def self.update(subs_id)
@@ -72,6 +72,8 @@ module JacintheManagement
         end
       end
 
+      #
+      # @return [Array<Tiers>]all Jacinthe tiers
       def self.all_jacinthe_tiers
         build_jacinthe_tiers_list unless @all_jacinthe_tiers
         @all_jacinthe_tiers
@@ -108,7 +110,7 @@ module JacintheManagement
         Sql.answer_to_query(JACINTHE_MODE, SQL_SUBSCRIPTION_NUMBER)[1].to_i
       end
 
-      # FIXME: comment
+      # @return [ArrayToBeNotified>] all ToBeNotified objects
       def self.all_notifications
         Sql.answer_to_query(JACINTHE_MODE, SQL_SUBSCRIPTIONS).drop(1).map do |line|
           items = line.chomp.split(Core::TAB)
@@ -116,7 +118,7 @@ module JacintheManagement
         end
       end
 
-      # FIXME: comment
+      # @return [Hash<ToBeNotified>] all ToBeNOtified objects by categories
       def self.build_classified_notifications
         table = {}
         all_notifications.each do |item|
@@ -126,13 +128,13 @@ module JacintheManagement
         @classified_notifications = table
       end
 
-      # FIXME:
+      # @return [Hash<ToBeNotified>] all ToBeNOtified objects by categories
       def self.classified_notifications
         build_classified_notifications unless @classified_notifications
         @classified_notifications
       end
 
-      # FIXME
+      # @return [Array] all the categories of possible notifications
       def self.notification_categories
         classified_notifications.keys.sort
       end

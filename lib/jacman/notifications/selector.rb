@@ -9,13 +9,16 @@
 module JacintheManagement
   # Methods for e-subscriptions notification
   module Notifications
-    # FIXME:
+
+    # do notify these categories
+    # @param [Array] keys list of categories to notify
     def self.notify_all(keys = Base.notification_categories)
       Selector.new(keys).notify_all
     end
 
-    # FIXME:
+    # object to select and categorize notifications
     class Selector
+      # @param [Array] keys list of categories to notify
       def initialize(keys)
         @keys = keys
         @report = []
@@ -23,7 +26,6 @@ module JacintheManagement
       end
 
       ##
-      # FIXME:
       # build @to_be_notified_for and @tiers_list
       def extract_subscriptions_and_tiers
         @to_be_notified_for = []

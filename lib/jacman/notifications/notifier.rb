@@ -20,7 +20,7 @@ module JacintheManagement
       ENGLISH_SUBJECT = 'Notification of yours e-subscriptions'
 
       # @param [Integer|#to_i] tiers_id tiers identification
-      # FIXME
+      # @param [Array<ToBeNotified>] subscriptions tio be notified for this Tiers
       def initialize(tiers_id, subscriptions)
         @tiers = Base.find_tiers(tiers_id)
         @subscriptions = subscriptions
