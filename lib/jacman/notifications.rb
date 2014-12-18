@@ -6,7 +6,7 @@
 #
 # (c) Michel Demazure <michel@demazure.com>
 
-require 'jacman/core'
+require 'jacman/utils'
 
 require_relative('notifications/base.rb')
 require_relative('notifications/register.rb')
