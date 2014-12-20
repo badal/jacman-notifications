@@ -15,6 +15,6 @@ require_relative('notifications/version.rb')
 module JacintheManagement
   module Notifications
     TAB = Core::TAB
-    REAL = true
+    REAL = false
   end
 end
