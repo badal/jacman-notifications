@@ -1,0 +1,10 @@
+#!mast bin lib spec HISTORY.md LICENSE Rakefile README.md jacman-notifications.gemspec
+lib/jacman/notifications/base.rb
+lib/jacman/notifications/notifier.rb
+lib/jacman/notifications/register.rb
+lib/jacman/notifications/selector.rb
+lib/jacman/notifications/version.rb
+lib/jacman/notifications.rb
+LICENSE
+README.md
+jacman-notifications.gemspec
