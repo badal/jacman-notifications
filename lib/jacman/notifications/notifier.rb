@@ -105,7 +105,7 @@ module JacintheManagement
       # @param [String] subject subject line of header
       # @param [String] content of mail
       def mail(dest, subject, content)
-        mail_to_send = Core::Mail.new(dest, subject, content)
+        mail_to_send = Core::SmfMail.new(dest, subject, content)
         puts REAL ? mail_to_send.send : mail_to_send.demo
         true
       rescue StandardError => err
