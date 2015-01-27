@@ -20,7 +20,7 @@ module JacintheManagement
       ENGLISH_SUBJECT = 'Notification of yours e-subscriptions'
 
       # @param [Integer|#to_i] tiers_id tiers identification
-      # @param [Array<ToBeNotified>] subscriptions tio be notified for this Tiers
+      # @param [Array<ToBeNotified>] subscriptions to be notified for this Tiers
       def initialize(tiers_id, subscriptions)
         @tiers = Base.find_tiers(tiers_id)
         @subscriptions = subscriptions
@@ -105,7 +105,7 @@ module JacintheManagement
       # @param [String] subject subject line of header
       # @param [String] content of mail
       def mail(dest, subject, content)
-        mail_to_send = Core::SmfMail.new(dest, subject, content)
+        mail_to_send = Utils::SmfMail.new(dest, subject, content)
         puts REAL ? mail_to_send.send : mail_to_send.demo
         true
       rescue StandardError => err
