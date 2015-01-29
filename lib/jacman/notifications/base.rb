@@ -47,12 +47,12 @@ module JacintheManagement
       # @param [STRING] subs_id subscription identity
       def self.update(subs_id)
         query = SQL_UPDATE
-                .sub(/::abonnement_id::/, subs_id)
-                .sub(/::time_stamp::/, time_stamp)
-        if Notifications::REAL
-          Sql.query(JACINTHE_MODE, query) # this is real mode
-        else
+                    .sub(/::abonnement_id::/, subs_id)
+                    .sub(/::time_stamp::/, time_stamp)
+        if Notifications::FAKE
           puts "SQL : #{query}" # this is  demo mode
+        else
+          Sql.query(JACINTHE_MODE, query) # this is real mode
         end
       end
 

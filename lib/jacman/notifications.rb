@@ -16,6 +16,6 @@ require_relative('notifications/notifier.rb')
 module JacintheManagement
   module Notifications
     TAB = Core::TAB
-    REAL = false
+    FAKE = ( RUBY_PLATFORM =~ /mswin|mingw/ )
   end
 end

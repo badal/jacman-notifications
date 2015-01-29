@@ -106,7 +106,7 @@ module JacintheManagement
       # @param [String] content of mail
       def mail(dest, subject, content)
         mail_to_send = Utils::SmfMail.new(dest, subject, content)
-        puts REAL ? mail_to_send.send : mail_to_send.demo
+        puts FAKE ? mail_to_send.demo : mail_to_send.send
         true
       rescue StandardError => err
         puts report_error(err.message, dest)
