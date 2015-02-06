@@ -9,7 +9,6 @@
 module JacintheManagement
   # Methods for e-subscriptions notification
   module Notifications
-
     # do notify these categories
     # @param [Array] keys list of categories to notify
     def self.notify_all(keys = Base.notification_categories)
@@ -46,13 +45,11 @@ module JacintheManagement
       # @param [Integer|#to_i] tiers_id tiers identification
       # @return [Array<ToBeNotified] all subscriptions for this tiers
       def to_be_notified_for(tiers_id)
-         @to_be_notified_for[tiers_id.to_i]
+        @to_be_notified_for[tiers_id.to_i]
       end
 
       # @return [Array<Integer>] list of tiers_id appearing in subscriptions
-      def tiers_list
-        @tiers_list
-      end
+      attr_reader :tiers_list
 
       # command to notify all subscriptions
       def notify_all
