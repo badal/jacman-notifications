@@ -59,13 +59,25 @@ module JacintheManagement
       # send notification in french to this address
       # @param [String] dest mail address
       def notify_french(dest)
-        mail(dest, FRENCH_SUBJECT, mail_content(FRENCH_MODEL_FILE))
+        mail(dest, FRENCH_SUBJECT, mail_content(french_model_file))
+      end
+
+      # WARNING: DO NOT INLINE : Hack for collective
+      # @return [Path] file containing the model in french
+      def french_model_file
+        FRENCH_MODEL_FILE
       end
 
       # send notification in english to this address
       # @param [String] dest mail address
       def notify_english(dest)
-        mail(dest, ENGLISH_SUBJECT, mail_content(ENGLISH_MODEL_FILE))
+        mail(dest, ENGLISH_SUBJECT, mail_content(english_model_file))
+      end
+
+      # WARNING: DO NOT INLINE : Hack for collective
+      # @return [Path] file containing the model in english
+      def english_model_file
+        ENGLISH_MODEL_FILE
       end
 
       # update database
