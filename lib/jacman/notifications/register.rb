@@ -22,6 +22,10 @@ module JacintheManagement
         @register << line
       end
 
+      def self.all
+        @register
+      end
+
       # save the list of registered Tiers in a csv file
       def self.save_register
         File.open(NO_MAIL_FILE, 'w:utf-8') do |file|

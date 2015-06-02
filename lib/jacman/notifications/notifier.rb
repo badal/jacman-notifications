@@ -85,13 +85,18 @@ module JacintheManagement
         @subscriptions.each { |sub| Base.update(sub.id) }
       end
 
+      def ranges
+        @tiers.ranges.reject { |line| line =~ /^\s*#/ }
+      end
+
       # @return [Hash] substitutions to be made to model
       def substitutions
         { TIERS_ID: @tiers.tiers_id.to_s, # rubocop:disable SymbolName
           NAME: @tiers.name,
-          RANGES: @tiers.ranges.join("\n"),
+          RANGES: ranges.join("\n"),
+          MAILS: @tiers.mails.join("\n"),
           REVUES: @subscriptions.map(&:report).join("\n"),
-          DRUPAL: @tiers.drupal.to_s }
+          DRUPAL_ID: @tiers.drupal.to_s }
       end
 
       # @param [Path] file path to model file
@@ -118,7 +123,7 @@ module JacintheManagement
       # @param [String] content of mail
       def mail(dest, subject, content)
         mail_to_send = Utils::SmfMail.new(dest, subject, content)
-        puts FAKE ? mail_to_send.demo : mail_to_send.send
+        FAKE ? puts(mail_to_send.demo) : mail_to_send.send
         true
       rescue StandardError => err
         puts report_error(err.message, dest)
