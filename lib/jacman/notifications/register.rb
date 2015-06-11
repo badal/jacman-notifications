@@ -22,6 +22,7 @@ module JacintheManagement
         @register << line
       end
 
+      # @return [Array<String>] register content
       def self.all
         @register
       end
