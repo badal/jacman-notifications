@@ -85,13 +85,14 @@ module JacintheManagement
         @subscriptions.each { |sub| Base.update(sub.id) }
       end
 
+      # @return [Array<String>] IP ranges (w/o comments)
       def ranges
         @tiers.ranges.reject { |line| line =~ /^\s*#/ }
       end
 
       # @return [Hash] substitutions to be made to model
       def substitutions
-        { TIERS_ID: @tiers.tiers_id.to_s, # rubocop:disable SymbolName
+        { TIERS_ID: @tiers.tiers_id.to_s,
           NAME: @tiers.name,
           RANGES: ranges.join("\n"),
           MAILS: @tiers.mails.join("\n"),
