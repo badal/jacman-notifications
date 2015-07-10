@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.name = 'jacman-notifications'
   s.version = JacintheManagement::Notifications::VERSION
   s.authors = ['Michel Demazure']
-  s.description = 'Core and Script tools for Jacinthe DB management'
+  s.description = 'Notification tools for Jacinthe DB management'
   s.email = 'michel@demazure.com'
   s.extra_rdoc_files = ['README.md', 'LICENSE']
   s.files = ['README.md', 'LICENSE'] + Dir.glob('{lib,spec}/**/*')
