@@ -21,9 +21,11 @@ module JacintheManagement
 
       # @param [Integer|#to_i] tiers_id tiers identification
       # @param [Array<ToBeNotified>] subscriptions to be notified for this Tiers
-      def initialize(tiers_id, subscriptions)
+      # @param [Bool] mode whether mails have to be sent
+      def initialize(tiers_id, subscriptions, mode)
         @tiers = Base.find_tiers(tiers_id)
         @subscriptions = subscriptions
+        @mode = mode
         extract_destinations if @tiers
       end
 
@@ -40,7 +42,7 @@ module JacintheManagement
         return false unless @tiers # invalid tiers_id
         if @french || @other
           done = notify_all_destinations
-          say_notified if done
+          say_notified if done && @mode
           done
         else # no mail
           register_tiers
@@ -124,7 +126,7 @@ module JacintheManagement
       # @param [String] content of mail
       def mail(dest, subject, content)
         mail_to_send = Utils::SmfMail.new(dest, subject, content)
-        FAKE ? puts(mail_to_send.demo) : mail_to_send.send
+        @mode ? mail_to_send.send : puts(mail_to_send.demo)
         true
       rescue StandardError => err
         puts report_error(err.message, dest)

@@ -11,15 +11,18 @@ module JacintheManagement
   module Notifications
     # do notify these categories
     # @param [Array] keys list of categories to notify
-    def self.notify_all(keys = Base.notification_categories)
-      Selector.new(keys).notify_all
+    # @param [Bool] mode whether mails have to be sent
+    def self.notify_all(keys = Base.notification_categories, mode)
+      Selector.new(keys, mode).notify_all
     end
 
     # object to select and categorize notifications
     class Selector
       # @param [Array] keys list of categories to notify
-      def initialize(keys)
+      # @param [Bool] mode whether mails have to be sent
+      def initialize(keys, mode)
         @keys = keys
+        @mode = mode
         @report = []
         extract_subscriptions_and_tiers
       end
@@ -70,7 +73,7 @@ module JacintheManagement
         @report << "#{number} mail(s) à envoyer"
         tiers_list.each do |tiers_id|
           subs = to_be_notified_for(tiers_id)
-          done = Notifier.new(tiers_id, subs).notify
+          done = Notifier.new(tiers_id, subs, @mode).notify
           next if done
           number -= 1
           @report << "notification impossible pour le tiers #{tiers_id}"
