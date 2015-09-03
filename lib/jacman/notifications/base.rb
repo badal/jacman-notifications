@@ -47,8 +47,8 @@ module JacintheManagement
       # @param [STRING] subs_id subscription identity
       def self.update(subs_id)
         query = SQL_UPDATE
-                    .sub(/::abonnement_id::/, subs_id)
-                    .sub(/::time_stamp::/, time_stamp)
+                .sub(/::abonnement_id::/, subs_id)
+                .sub(/::time_stamp::/, time_stamp)
         Sql.query(JACINTHE_MODE, query)
       end
 

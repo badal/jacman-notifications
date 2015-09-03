@@ -59,7 +59,7 @@ module JacintheManagement
         if @size > 0
           @report << "#{@size} abonnement(s) à notifier"
           do_notify_all
-          @report << Register.report_without_mail
+          @report << Registry.report_missed_notifications
         else
           @report << 'Pas de notification à faire'
         end

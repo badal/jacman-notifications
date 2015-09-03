@@ -7,7 +7,7 @@
   * needs _jacman-utils_
 
 ## Version
-  * 0.1.10
+  * 0.3
 
 ## Synopsis
 

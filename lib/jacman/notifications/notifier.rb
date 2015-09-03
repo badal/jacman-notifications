@@ -112,12 +112,10 @@ module JacintheManagement
         raw
       end
 
-      # Register this Tiers
+      # Registry this Tiers as a NotificationError
       def register_tiers
-        ranges = @tiers.ranges.empty? ? 'pas de plages' : 'plages'
-        Register.register [@tiers.tiers_id, @tiers.name,
-                           @subscriptions.size,
-                           ranges].join(TAB)
+        ranges = !@tiers.ranges.empty?
+        @subscriptions.each { |sub| Registry.register_error(sub, ranges) }
       end
 
       # send mail
