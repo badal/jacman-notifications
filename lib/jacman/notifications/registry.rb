@@ -14,7 +14,7 @@ module JacintheManagement
     # methods to register missed notifications
     module Registry
       # lists to register subscriptions by Tiers without mail
-      TITLES = %w(Abonnement Revue Année Référence Facture Tiers)
+      TITLES = %w(Abonnement Revue Année Référence Facture Tiers Mail)
 
       @registry_with_ranges = [['AVEC DES PLAGES'], TITLES]
       @registry_without_ranges = [['SANS PLAGES'], TITLES]

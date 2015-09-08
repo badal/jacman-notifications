@@ -14,7 +14,7 @@ module JacintheManagement
 
     # subscription parameters to be notified
     # noinspection RubyConstantNamingConvention
-    ToBeNotified = Struct.new(:id, :revue, :year, :ref, :billing, :tiers_id)
+    ToBeNotified = Struct.new(:id, :revue, :year, :ref, :billing, :tiers_id, :tiers_email)
 
     # reopening class
     class ToBeNotified
