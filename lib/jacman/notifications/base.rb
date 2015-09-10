@@ -18,9 +18,23 @@ module JacintheManagement
 
     # reopening class
     class ToBeNotified
+      # @return [String] explicit reference when special
+      def reference
+        case ref
+        when /Abo..-GT/
+          'gratuit/free'
+        when /Abo..-Ech/
+          'échange/exchange'
+        when /Abo-Nat/
+          'compris dans l\'abonnement national CNRS'
+        else
+          "ref:#{ref}"
+        end
+      end
+
       # @return [String] report for mail
       def report
-        "#{revue} (#{year}) ref:#{ref}"
+        "#{revue} (#{year}) [#{reference}]"
       end
     end
 

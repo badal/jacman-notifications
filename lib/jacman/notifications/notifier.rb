@@ -26,7 +26,6 @@ module JacintheManagement
         @tiers = Base.find_tiers(tiers_id)
         @subscriptions = subscriptions
         @mode = mode
-        extract_destinations if @tiers
       end
 
       # extract french and other addresses
@@ -40,6 +39,7 @@ module JacintheManagement
       # @return [Bool] whether notifications were done
       def notify
         return false unless @tiers # invalid tiers_id
+        extract_destinations
         if @french || @other
           done = notify_all_destinations
           say_notified if done && @mode

@@ -9,6 +9,7 @@
 module JacintheManagement
   # Methods for e-subscriptions notification
   module Notifications
+    # file where missed notifications are saved
     NO_NOTIFICATION_FILE = File.join(Core::DATADIR, 'notifications_non_faites.txt')
 
     # methods to register missed notifications
