@@ -99,7 +99,8 @@ module JacintheManagement
           RANGES: ranges.join("\n"),
           MAILS: @tiers.mails.join("\n"),
           REVUES: @subscriptions.map(&:report).join("\n"),
-          DRUPAL_ID: @tiers.drupal.to_s }
+          DRUPAL_ID: @tiers.drupal.to_s,
+          DRUPAL_MAIL: @tiers.drupal_mail.to_s }
       end
 
       # @param [Path] file path to model file

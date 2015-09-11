@@ -8,6 +8,6 @@
 
 module JacintheManagement
   module Notifications
-    VERSION = '0.4.0'
+    VERSION = '0.4.1'
   end
 end

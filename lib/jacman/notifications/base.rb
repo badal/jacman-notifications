@@ -10,7 +10,7 @@ module JacintheManagement
   # Methods for e-subscriptions notification
   module Notifications
     # tiers for notification
-    Tiers = Struct.new(:tiers_id, :name, :ranges, :mails, :drupal)
+    Tiers = Struct.new(:tiers_id, :name, :ranges, :mails, :drupal, :drupal_mail)
 
     # subscription parameters to be notified
     # noinspection RubyConstantNamingConvention
