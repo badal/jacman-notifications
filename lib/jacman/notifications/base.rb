@@ -148,6 +148,14 @@ module JacintheManagement
       def self.notification_categories
         classified_notifications.keys.sort
       end
+
+      # @return [Array] all the categories of possible notifications
+      def self.filtered_classified_notifications
+        classified_notifications.select do |(_, year),_|
+          Notifications.filter(year)
+        end
+      end
+
     end
   end
 end

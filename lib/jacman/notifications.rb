@@ -15,5 +15,13 @@ require_relative('notifications/notifier.rb')
 module JacintheManagement
   module Notifications
     TAB = Core::TAB
+
+    YEAR = Time.now.year
+    MONTH = Time.now.month
+
+    def self.filter(year)
+      year.to_i >= ( MONTH <= 3 ? YEAR - 1 : YEAR )
+    end
   end
 end
+
