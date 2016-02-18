@@ -96,7 +96,9 @@ module JacintheManagement
         name = items[2] == 'NULL' ? items[1] : items[2] + ' ' + items[1]
         ranges = clean_split('\\n', items[3])
         mails = clean_split(',', items[4].chomp)
-        [number, name, ranges, mails]
+        drupal_id = items[5].to_i
+        drupal_mail = items[6].chomp
+        [number, name, ranges, mails, drupal_id, drupal_mail]
       end
 
       # @param [String] sep separator
